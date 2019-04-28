@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace EncoderWrite {
     class MainClass {
-		public static void Exit () {
+        public static void Exit() {
             Console.ResetColor();
-            if (System.Environment.OSVersion.ToString().Substring(0,4) != "Unix") {
+            if (System.Environment.OSVersion.ToString().Substring(0, 4) != "Unix") {
                 Console.Write("Press any key to continue...");
                 Console.ReadKey(true);
                 Console.WriteLine();
             }
-		}
+        }
         public static bool Arg(string[] args, int which, string equalTo) {
             if (args.Length >= which) {
                 if (args[which - 1] == equalTo) {
@@ -32,7 +32,7 @@ namespace EncoderWrite {
         public static void WriteOutput(string[] args, string output) {
             if (Arg(args, 3, "write")) {
                 System.IO.File.WriteAllLines("output.txt", new string[] { output }, System.Text.Encoding.UTF8);
-				Console.WriteLine("Written to file: output.txt");
+                Console.WriteLine("Written to file: output.txt");
                 return;
             }
             Console.WriteLine(output);
@@ -120,6 +120,7 @@ namespace EncoderWrite {
                     }
                     WriteOutput(args, output);
                 } else if (args[0] == "r") {
+                    var errors = 0;
                     var output = "";
                     for (var i = 0; i < input.Length; i++) {
                         var searchInt = (int)input[i];
@@ -135,21 +136,22 @@ namespace EncoderWrite {
                             }
                         }
                         if (index == -1) {
-                            Console.WriteLine("Invalid character\nFatal error");
-                            Exit();
-                            return;
+                            errors++;
+                            output += (char)9949;
+                        } else {
+                            output += alphabet[index];
                         }
-                        output += alphabet[index];
                     }
+                    Console.WriteLine("Errors: {0}", errors);
                     WriteOutput(args, output);
                 } else {
-					Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/write] read or write input/output to/from input.txt/output.txt");
                 }
-				Exit();
-				return;
+                Exit();
+                return;
             }
-			Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Missing arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/write] read or write input/output to/from input.txt/output.txt");
             Console.WriteLine("If you ran this by double clicking on it, open a terminal and run with arguments");
             Exit();

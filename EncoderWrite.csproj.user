@@ -9,9 +9,12 @@
     <StartArguments>r auto</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>w auto</StartArguments>
+    <StartArguments>r auto read</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartArguments>r auto read</StartArguments>
   </PropertyGroup>
 </Project>
