@@ -64,7 +64,7 @@ namespace EncoderWrite {
             var encoders = new List<List<int>> { };
             if (args.Length > 0) {
                 if (Arg(args, 2, "auto")) {
-                    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö.,-! 1234567890";
+                    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö.,-!?' 1234567890";
                     for (var i = 0; i < alphabet.Length; i++) {
                         encoders.Add(new List<int> { });
                     }
