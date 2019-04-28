@@ -1,0 +1,12 @@
+/home/skyletoft/Projects/RandomDotNet/EncoderWrite/bin/Debug/EncoderWrite.exe
+/home/skyletoft/Projects/RandomDotNet/EncoderWrite/bin/Debug/EncoderWrite.pdb
+/home/skyletoft/Projects/RandomDotNet/EncoderWrite/obj/x86/Debug/EncoderWrite.csproj.CoreCompileInputs.cache
+/home/skyletoft/Projects/RandomDotNet/EncoderWrite/obj/x86/Debug/EncoderWrite.exe
+/home/skyletoft/Projects/RandomDotNet/EncoderWrite/obj/x86/Debug/EncoderWrite.pdb
+/home/skyletoft/Projects/RandomDotNet/EncoderWrite/obj/x86/Debug/EncoderWrite.csprojAssemblyReference.cache
+E:\Code\GIT\Skattjakt-jul-2018\Skattjakt-jul-2018\RandomV2\bin\Debug\EncoderWrite.exe
+E:\Code\GIT\Skattjakt-jul-2018\Skattjakt-jul-2018\RandomV2\bin\Debug\EncoderWrite.pdb
+E:\Code\GIT\Skattjakt-jul-2018\Skattjakt-jul-2018\RandomV2\obj\x86\Debug\EncoderWrite.csprojAssemblyReference.cache
+E:\Code\GIT\Skattjakt-jul-2018\Skattjakt-jul-2018\RandomV2\obj\x86\Debug\EncoderWrite.csproj.CoreCompileInputs.cache
+E:\Code\GIT\Skattjakt-jul-2018\Skattjakt-jul-2018\RandomV2\obj\x86\Debug\EncoderWrite.exe
+E:\Code\GIT\Skattjakt-jul-2018\Skattjakt-jul-2018\RandomV2\obj\x86\Debug\EncoderWrite.pdb

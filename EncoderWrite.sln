@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncoderWrite", "EncoderWrite.csproj", "{0703F944-9685-496A-90B6-40F7644CDB5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0703F944-9685-496A-90B6-40F7644CDB5F}.Debug|x86.ActiveCfg = Debug|x86
+		{0703F944-9685-496A-90B6-40F7644CDB5F}.Debug|x86.Build.0 = Debug|x86
+		{0703F944-9685-496A-90B6-40F7644CDB5F}.Release|x86.ActiveCfg = Release|x86
+		{0703F944-9685-496A-90B6-40F7644CDB5F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE18DDAA-6AA3-4A2F-A9D4-625341E75F66}
+	EndGlobalSection
+EndGlobal
