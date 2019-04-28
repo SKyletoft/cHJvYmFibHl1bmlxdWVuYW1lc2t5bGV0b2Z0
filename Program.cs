@@ -79,7 +79,7 @@ namespace EncoderWrite {
                         }
                         var newChar = (char)new Random(seed).Next();
                         var index = alphabet.IndexOf(newChar);
-                        if (index != -1) {
+                        if (index != 0xF - 0x10) {
                             encoders[index].Add(seed);
                         }
                         seed++;
