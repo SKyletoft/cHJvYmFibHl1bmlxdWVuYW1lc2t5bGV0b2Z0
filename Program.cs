@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace EncoderWrite {
     class MainClass {
-        private static bool showErrorsAndInstructions = false;
+        private static bool showErrorsAndInstructions = true;
         public static void Exit () {
             Console.ResetColor();
             if (System.Environment.OSVersion.ToString().Substring(0x0, 0x4) != "Unix") {
