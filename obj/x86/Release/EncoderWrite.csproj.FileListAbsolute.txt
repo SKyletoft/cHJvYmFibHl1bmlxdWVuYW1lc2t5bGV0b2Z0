@@ -2,3 +2,7 @@ E:\Code\GIT\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV
 E:\Code\GIT\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\obj\x86\Release\EncoderWrite.csproj.CoreCompileInputs.cache
 E:\Code\GIT\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\obj\x86\Release\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0.exe
 E:\Code\GIT\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0.exe
+C:\Users\ae60439\Source\Repos\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0.exe.config
+C:\Users\ae60439\Source\Repos\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\obj\x86\Release\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0.exe
+C:\Users\ae60439\Source\Repos\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\obj\x86\Release\EncoderWrite.csprojResolveAssemblyReference.cache
+C:\Users\ae60439\Source\Repos\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0\cHJvYmFibHl1bmlxdWVuYW1lc2t5bGV0b2Z0.exe

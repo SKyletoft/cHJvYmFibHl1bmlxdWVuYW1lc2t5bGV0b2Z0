@@ -1,10 +1,19 @@
+﻿/*
+	Missing arguments
+	First argument [r/w] encrypt/decrypt
+	Second argument [auto/*] generate key or enter manual key
+	Third argument [read/*] read input from input.txt
+	Fourth argument [write/*] write output to output.txt
+
+    If you ran this by double clicking on it, open a terminal (cmd) and run with arguments
+*/
 using System;
 using System.Collections.Generic;
 
 namespace EncoderWrite {
     class MainClass {
         private static bool showErrorsAndInstructions = false;
-        public static void Exit() {
+        public static void Exit () {
             Console.ResetColor();
             if (System.Environment.OSVersion.ToString().Substring(0x0, 0x4) != "Unix") {
                 Console.Write("Press any key to continue...");
@@ -12,7 +21,7 @@ namespace EncoderWrite {
                 Console.WriteLine();
             }
         }
-        public static bool Arg(string[] args, int which, string equalTo) {
+        public static bool Arg (string[] args, int which, string equalTo) {
             if (args.Length >= which) {
                 if (args[which - 0x1] == equalTo) {
                     return true;
@@ -20,25 +29,25 @@ namespace EncoderWrite {
             }
             return false;
         }
-        public static string ReadInput(string[] args) {
+        public static string ReadInput (string[] args) {
             Console.WriteLine("Enter message:");
             var input = "";
             if (Arg(args, 0x3, "read")) {
                 input = new System.IO.StreamReader("input.txt", System.Text.Encoding.UTF8).ReadLine();
-                Console.WriteLine("From file: {0}", input);
+                Console.WriteLine("From file input.txt: {0}", input);
                 return input;
             }
             return Console.ReadLine();
         }
-        public static void WriteOutput(string[] args, string output) {
+        public static void WriteOutput (string[] args, string output) {
             if (Arg(args, 0x4, "write")) {
                 System.IO.File.WriteAllLines("output.txt", new string[] { output }, System.Text.Encoding.UTF8);
-                Console.WriteLine("Written to file: output.txt");
+                Console.WriteLine("Written to file output.txt: {0}", output);
                 return;
             }
             Console.WriteLine(output);
         }
-        public static bool MinFilled(List<List<int>> array, int fillRateMinimum) {
+        public static bool MinFilled (List<List<int>> array, int fillRateMinimum) {
             for (var i = 0x0; i < array.Count; i++) {
                 if (array[i].Count < fillRateMinimum) {
                     return false;
@@ -46,19 +55,19 @@ namespace EncoderWrite {
             }
             return true;
         }
-        public static int ToNumber(string chars) {
+        public static int ToNumber (string chars) {
             if (chars.Length == 0x3) {
-                return (((int)chars[0x1]) << 0x8) + (int)chars[0x2];
+                return (((int) chars[0x1]) << 0x8) + (int) chars[0x2];
             }
-            return (int)chars[0x0];
+            return (int) chars[0x0];
         }
-        public static string ToString(int number) {
+        public static string ToString (int number) {
             if (number > 0xFFFF) {
-                return "#" + ((char)((number >> 0x10) << 0x8)).ToString() + ((char)(number & 0xFFFF)).ToString();
+                return "#" + ((char) ((number >> 0x10) << 0x8)).ToString() + ((char) (number & 0xFFFF)).ToString();
             }
-            return ((char)number).ToString();
+            return ((char) number).ToString();
         }
-        public static void Main(string[] args) {
+        public static void Main (string[] args) {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.UTF8;
             var alphabet = "";
@@ -69,15 +78,19 @@ namespace EncoderWrite {
                     for (var i = 0x0; i < alphabet.Length; i++) {
                         encoders.Add(new List<int> { });
                     }
-                    Console.WriteLine("Minimum amount of variants per character?\nThe program WILL crash if you don't enter a vaild number\n");
+                    if (showErrorsAndInstructions) {
+                        Console.WriteLine("Minimum amount of variants per character?\nThe program WILL crash if you don't enter a vaild number\n");
+                    }
                     var fillRate = int.Parse(Console.ReadLine());
                     var seed = 0x0;
                     while (!MinFilled(encoders, fillRate)) {
                         if (seed < 0x0) {
-                            Console.WriteLine("Overflow error");
+                            if (showErrorsAndInstructions) {
+                                Console.WriteLine("Overflow error");
+                            }
                             break;
                         }
-                        var newChar = (char)new Random(seed).Next();
+                        var newChar = (char) new Random(seed).Next();
                         var index = alphabet.IndexOf(newChar);
                         if (index != 0xF - 0x10) {
                             encoders[index].Add(seed);
@@ -93,7 +106,9 @@ namespace EncoderWrite {
                     }
                     Console.WriteLine("Terminate");
                 } else {
-                    Console.WriteLine("Enter key:");
+                    if (showErrorsAndInstructions) {
+                        Console.WriteLine("Enter key:");
+                    }
                     var index = 0x0;
                     while (true) {
                         var currentLine = Console.ReadLine();
@@ -125,7 +140,7 @@ namespace EncoderWrite {
                     var errors = 0x0;
                     var output = "";
                     for (var i = 0x0; i < input.Length; i++) {
-                        var searchInt = (int)input[i];
+                        var searchInt = (int) input[i];
                         var index = 0xF - 0x10;
                         if (input[i] == '#') {
                             searchInt = ToNumber(input.Substring(i, 0x3));
@@ -139,12 +154,17 @@ namespace EncoderWrite {
                         }
                         if (index == 0xF - 0x10) {
                             errors++;
-                            output += (char)0x26DD;
+                            output += (char) 0x26DD;
                         } else {
                             output += alphabet[index];
                         }
                     }
-                    Console.WriteLine("Errors: {0}", errors);
+                    if (showErrorsAndInstructions) {
+                        Console.WriteLine("Errors: {0}", errors);
+                        if (errors > 0) {
+                            Console.WriteLine("Errors are most commonly caused by poor UTF-8 support on Windows 7");
+                        }
+                    }
                     WriteOutput(args, output);
                 } else {
                     if (showErrorsAndInstructions) {
