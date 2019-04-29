@@ -9,7 +9,7 @@
     <StartArguments>r auto</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>r auto write</StartArguments>
+    <StartArguments>r ran read %2a</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>

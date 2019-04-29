@@ -1,7 +1,7 @@
 ﻿/*
 	Missing arguments
 	First argument [r/w] encrypt/decrypt
-	Second argument [auto/*] generate key or enter manual key
+	Second argument [auto/key/*] generate key or enter manual key
 	Third argument [read/*] read input from input.txt
 	Fourth argument [write/*] write output to output.txt
 
@@ -73,92 +73,124 @@ namespace EncoderWrite {
             var alphabet = "";
             var encoders = new List<List<int>> { };
             if (args.Length > 0x0) {
-                if (Arg(args, 0x2, "auto")) {
-                    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö.,-!?' 1234567890";
-                    for (var i = 0x0; i < alphabet.Length; i++) {
-                        encoders.Add(new List<int> { });
-                    }
-                    if (showErrorsAndInstructions) {
-                        Console.WriteLine("Minimum amount of variants per character?\nThe program WILL crash if you don't enter a vaild number\n");
-                    }
-                    var fillRate = int.Parse(Console.ReadLine());
-                    var seed = 0x0;
-                    while (!MinFilled(encoders, fillRate)) {
-                        if (seed < 0x0) {
-                            if (showErrorsAndInstructions) {
-                                Console.WriteLine("Overflow error");
+                if (!Arg(args, 0x2, "ran")) {
+                    if (Arg(args, 0x2, "auto")) {
+                        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö.,-!?' 1234567890";
+                        for (var i = 0x0; i < alphabet.Length; i++) {
+                            encoders.Add(new List<int> { });
+                        }
+                        if (showErrorsAndInstructions) {
+                            Console.WriteLine("Minimum amount of variants per character?\nThe program WILL crash if you don't enter a vaild number\n");
+                        }
+                        var fillRate = int.Parse(Console.ReadLine());
+                        var seed = 0x0;
+                        while (!MinFilled(encoders, fillRate)) {
+                            if (seed < 0x0) {
+                                if (showErrorsAndInstructions) {
+                                    Console.WriteLine("Overflow error");
+                                }
+                                break;
                             }
-                            break;
-                        }
-                        var newChar = (char) new Random(seed).Next();
-                        var index = alphabet.IndexOf(newChar);
-                        if (index != 0xF - 0x10) {
-                            encoders[index].Add(seed);
-                        }
-                        seed++;
-                    }
-                    for (var i = 0x0; i < encoders.Count; i++) {
-                        Console.Write(alphabet[i] + ": ");
-                        for (var j = 0x0; j < encoders[i].Count; j++) {
-                            Console.Write(encoders[i][j] + " ");
-                        }
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine("Terminate");
-                } else {
-                    if (showErrorsAndInstructions) {
-                        Console.WriteLine("Enter key:");
-                    }
-                    var index = 0x0;
-                    while (true) {
-                        var currentLine = Console.ReadLine();
-                        if (currentLine == "Terminate") {
-                            break;
-                        }
-                        alphabet += currentLine[0];
-                        currentLine = currentLine.Substring(0x2);
-                        encoders.Add(new List<int> { });
-                        var numbers = currentLine.Split(' ');
-                        for (var i = 0; i < numbers.Length; i++) {
-                            var tmpI = 0x0;
-                            if (Int32.TryParse(numbers[i], out tmpI)) {
-                                encoders[index].Add(tmpI);
+                            var newChar = (char) new Random(seed).Next();
+                            var index = alphabet.IndexOf(newChar);
+                            if (index != 0xF - 0x10) {
+                                encoders[index].Add(seed);
                             }
+                            seed++;
+                        }
+                        for (var i = 0x0; i < encoders.Count; i++) {
+                            Console.Write(alphabet[i] + ": ");
+                            for (var j = 0x0; j < encoders[i].Count; j++) {
+                                Console.Write(encoders[i][j] + " ");
+                            }
+                            Console.WriteLine();
+                        }
+                        Console.WriteLine("Terminate");
+                    } else {
+                        if (showErrorsAndInstructions) {
+                            Console.WriteLine("Enter key:");
+                        }
+                        var index = 0x0;
+                        var keyFromFile = (System.IO.StreamReader) null;
+                        if (Arg(args, 0x2, "key")) {
+                            keyFromFile = new System.IO.StreamReader("key.txt");
+                        }
+                        while (true) {
+                            var currentLine = "";
+                            if (Arg(args, 0x2, "key")) {
+                                if (keyFromFile.EndOfStream) {
+                                    break;
+                                }
+                                currentLine = keyFromFile.ReadLine();
+                            } else {
+                                currentLine = Console.ReadLine();
+                            }
+                            if (currentLine == "Terminate") {
+                                break;
+                            }
+                            alphabet += currentLine[0];
+                            currentLine = currentLine.Substring(0x2);
+                            encoders.Add(new List<int> { });
+                            var numbers = currentLine.Split(' ');
+                            for (var i = 0; i < numbers.Length; i++) {
+                                var tmpI = 0x0;
+                                if (Int32.TryParse(numbers[i], out tmpI)) {
+                                    encoders[index].Add(tmpI);
+                                }
+                            }
+                            index++;
                         }
                     }
                 }
                 var input = ReadInput(args);
-                if (args[0x0] == "w") {
-                    var rnd = new Random();
+                if (Arg(args, 1, "w")) {
                     var output = "";
-                    for (var i = 0x0; i < input.Length; i++) {
-                        var index = alphabet.IndexOf(input[i]);
-                        output += ToString(encoders[index][rnd.Next() % encoders[index].Count]);
+                    if (Arg(args, 2, "ran")) {
+                        output = "ran is not compatible with encoding. Please use auto for keying";
+                    } else {
+                        var rnd = new Random();
+                        for (var i = 0x0; i < input.Length; i++) {
+                            var index = alphabet.IndexOf(input[i]);
+                            output += ToString(encoders[index][rnd.Next() % encoders[index].Count]);
+                        }
                     }
+
                     WriteOutput(args, output);
-                } else if (args[0x0] == "r") {
+                } else if (Arg(args, 1, "r")) {
                     var errors = 0x0;
                     var output = "";
-                    for (var i = 0x0; i < input.Length; i++) {
-                        var searchInt = (int) input[i];
-                        var index = 0xF - 0x10;
-                        if (input[i] == '#') {
-                            searchInt = ToNumber(input.Substring(i, 0x3));
-                            i += 0x2;
+                    if (Arg(args, 2, "ran")) {
+                        for (var i = 0; i < input.Length; i++) {
+                            var searchInt = 0;
+                            if (input[i] == '#') {
+                                searchInt = ToNumber(input.Substring(i, 0x3));
+                                i += 0x2;
+                            }
+                            output += (char) new Random(searchInt).Next();
                         }
-                        for (var j = 0x0; j < encoders.Count; j++) {
-                            if (encoders[j].Contains(searchInt)) {
-                                index = j;
-                                break;
+                    } else {
+                        for (var i = 0x0; i < input.Length; i++) {
+                            var searchInt = (int) input[i];
+                            var index = 0xF - 0x10;
+                            if (input[i] == '#') {
+                                searchInt = ToNumber(input.Substring(i, 0x3));
+                                i += 0x2;
+                            }
+                            for (var j = 0x0; j < encoders.Count; j++) {
+                                if (encoders[j].Contains(searchInt)) {
+                                    index = j;
+                                    break;
+                                }
+                            }
+                            if (index == 0xF - 0x10) {
+                                errors++;
+                                output += (char) 0x26DD;
+                            } else {
+                                output += alphabet[index];
                             }
                         }
-                        if (index == 0xF - 0x10) {
-                            errors++;
-                            output += (char) 0x26DD;
-                        } else {
-                            output += alphabet[index];
-                        }
                     }
+
                     if (showErrorsAndInstructions) {
                         Console.WriteLine("Errors: {0}", errors);
                         if (errors > 0) {
@@ -169,7 +201,7 @@ namespace EncoderWrite {
                 } else {
                     if (showErrorsAndInstructions) {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/*] read input from input.txt\nFourth argument [write/*] write output to output.txt");
+                        Console.WriteLine("Invalid arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/key/*] generate key or enter manual key\nThird argument [read/*] read input from input.txt\nFourth argument [write/*] write output to output.txt");
                     }
                 }
                 Exit();
@@ -177,7 +209,7 @@ namespace EncoderWrite {
             }
             if (showErrorsAndInstructions) {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Missing arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/*] read input from input.txt\nFourth argument [write/*] write output to output.txt");
+                Console.WriteLine("Missing arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/key/*] generate key or enter manual key\nThird argument [read/*] read input from input.txt\nFourth argument [write/*] write output to output.txt");
                 Console.WriteLine("If you ran this by double clicking on it, open a terminal and run with arguments");
             }
             Exit();
