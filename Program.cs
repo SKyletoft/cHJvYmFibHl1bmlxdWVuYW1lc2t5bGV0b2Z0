@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace EncoderWrite {
@@ -31,7 +31,7 @@ namespace EncoderWrite {
             return Console.ReadLine();
         }
         public static void WriteOutput(string[] args, string output) {
-            if (Arg(args, 0x3, "write")) {
+            if (Arg(args, 0x4, "write")) {
                 System.IO.File.WriteAllLines("output.txt", new string[] { output }, System.Text.Encoding.UTF8);
                 Console.WriteLine("Written to file: output.txt");
                 return;
@@ -105,7 +105,8 @@ namespace EncoderWrite {
                         encoders.Add(new List<int> { });
                         var numbers = currentLine.Split(' ');
                         for (var i = 0; i < numbers.Length; i++) {
-                            if (Int32.TryParse(numbers[i], out var tmpI)) {
+                            var tmpI = 0x0;
+                            if (Int32.TryParse(numbers[i], out tmpI)) {
                                 encoders[index].Add(tmpI);
                             }
                         }
@@ -148,7 +149,7 @@ namespace EncoderWrite {
                 } else {
                     if (showErrorsAndInstructions) {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/write] read or write input/output to/from input.txt/output.txt");
+                        Console.WriteLine("Invalid arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/*] read input from input.txt\nFourth argument [write/*] write output to output.txt");
                     }
                 }
                 Exit();
@@ -156,7 +157,7 @@ namespace EncoderWrite {
             }
             if (showErrorsAndInstructions) {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Missing arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/write] read or write input/output to/from input.txt/output.txt");
+                Console.WriteLine("Missing arguments\nFirst argument [r/w] encrypt/decrypt\nSecond argument [auto/*] generate key or enter manual key\nThird argument [read/*] read input from input.txt\nFourth argument [write/*] write output to output.txt");
                 Console.WriteLine("If you ran this by double clicking on it, open a terminal and run with arguments");
             }
             Exit();
